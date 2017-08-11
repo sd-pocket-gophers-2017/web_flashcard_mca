@@ -1,0 +1,7 @@
+- if @card.guesses.any? && @card.guesses[0].is_correct
+  h4 Correct!
+- else
+  h4 Incorrect!
+  p = "The correct answer is #{@card.answer}"
+form action="/decks/#{@card.deck.id}" method="post"
+  input type="submit" value="Next Question"

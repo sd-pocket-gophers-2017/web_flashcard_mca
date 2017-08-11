@@ -1,5 +1,7 @@
-h2 decks index page
+h2 Flashcard Decks
 
 ul
   - @decks.each do |deck|
-    li = deck.name
+    - @deck = deck
+    li
+      == slim :'decks/_deck_link'
