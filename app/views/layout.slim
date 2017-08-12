@@ -10,7 +10,10 @@ html
     header
       h1 Flashcards
       ul
-        li register
-        li login
-        li home
+        a [href="/users/new"] Register
+        a [href="/users/login"] Login
+        a [href="/logout"] Logout
+        a [href="/"] Home
+        form action="/users/logout" method="post"
+          input type="submit" value="Login"
     == yield
