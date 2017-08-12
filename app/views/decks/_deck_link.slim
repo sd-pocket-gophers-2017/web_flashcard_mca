@@ -1,2 +1,2 @@
-form action="/decks/#{@deck.id}" method="post"
-  input type="submit" value="#{@deck.name}"
+form action="/rounds/new" method="post"
+  input type="submit" value="#{@deck.name}" name="round[deck_name]"
