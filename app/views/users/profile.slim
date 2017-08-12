@@ -2,7 +2,13 @@ h2
   =" #{current_user[:user_name]}"
   br
   br
-  |look at all the stats!
+table style="width:75%"
+  tr
+    th Date
+    th Cards in Deck
+    th First Guess Correct
+    th Total Guesses
+  = current_user.rounds { |round| "1"}
 
 
 

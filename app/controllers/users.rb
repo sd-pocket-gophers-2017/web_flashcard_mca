@@ -15,7 +15,7 @@ post '/users' do
 end
 #login
 get '/users/login' do
-  if session[:user_id]
+  if logged_in?
     redirect '/users/profile'
   else
     slim :'users/login'
