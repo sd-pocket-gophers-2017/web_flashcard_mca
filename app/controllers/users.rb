@@ -9,7 +9,8 @@ get '/users/new' do
 end
 
 post '/users' do
-  params[:user][:password] = hash_password(params[:user][:password])
+  p '*' * 50
+  params[:user][:hashed_password] = hash_password(params[:user][:hashed_password])
   @user = User.create(params[:user])
   redirect '/users/login'
 end
@@ -19,7 +20,7 @@ get '/users/login' do
 end
 
 post '/users/login' do
-  @user = User.authenticate(params[:user][:user_name], params[:user][:password])
+  @user = User.authenticate(params[:user][:user_name], params[:user][:hashed_password])
   if @user
     session[:user_id] = @user.id
     redirect '/users/profile'

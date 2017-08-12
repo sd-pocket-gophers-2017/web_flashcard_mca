@@ -10,13 +10,13 @@ html
     header
       h1 Flashcards
       ul
-        a [href="/"] Home
         - if logged_in?
-          'username'
+          a[href="/users/profile"] #{current_user[:user_name]}
           form action="/users/logout" method="post"
             input type="submit" value="Logout"
         - else
-          a [href="/users/new"] Register
-          a [href="/users/login"] Login
+          a[href="/users/new"] Register
+          a[href="/users/login"] Login
+        a[href="/"] Home
 
     == yield
