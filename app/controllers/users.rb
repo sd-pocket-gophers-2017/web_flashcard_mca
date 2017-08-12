@@ -3,6 +3,7 @@
 #   slim :index
 # end
 
+#create a new user
 get '/users/new' do
   slim :'users/new'
 end
@@ -12,7 +13,7 @@ post '/users' do
   @user = User.create(params[:user])
   redirect '/users/login'
 end
-
+#login
 get '/users/login' do
   slim :'users/login'
 end
@@ -28,16 +29,23 @@ post '/users/login' do
     slim :'users/login' #make this an error page
   end
 end
+#logout
+get '/users/logout' do
+  slim :'users/logout'
+end
 
-
-post '/logout' do
-
+post '/users/logout' do
   session[:user_id] = nil
-  redirect '/'
+  redirect '/users/login'
 end
 
 get '/users/profile' do
-  Rack::Utils.escape_html current_user.inspect
+  #Rack::Utils.escape_html current_user.inspect
+  if session[:user_id] == nil
+    redirect '/users/login'
+  else
+    slim :'users/profile'
+  end
 end
 
 
