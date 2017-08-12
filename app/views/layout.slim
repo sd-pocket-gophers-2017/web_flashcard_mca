@@ -3,6 +3,7 @@ html
   head
     link rel="stylesheet" href="/css/normalize.css"
     link rel="stylesheet" href="/css/application.css"
+    link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
     script src="/js/application.js"
 
@@ -10,7 +11,13 @@ html
     header
       h1 Flashcards
       ul
-        li register
-        li login
-        li home
+        - if logged_in?
+          a[class="btn btn-primary" href="/users/profile"] #{current_user[:user_name]}
+          form action="/users/logout" method="post"
+            input type="submit" value="Logout"
+        - else
+          a[href="/users/new"] Register
+          a[href="/users/login"] Login
+        a[href="/"] Home
+
     == yield
