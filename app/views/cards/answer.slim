@@ -1,4 +1,6 @@
-- if @card.guesses.any? && @card.guesses[0].is_correct
+h3 = @card.question
+
+- if @card.guesses.select { |guess| guess.is_correct == 't' }.any?
   h4 Correct!
 - else
   h4 Incorrect!
