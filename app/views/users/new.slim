@@ -1,14 +1,13 @@
 h1 Welcome to Flashcards!
-
 p The world's premier DBC flashcard site.
 - if @user.errors.any?
   == slim :'users/errors'
 div
   form action="/users" method="post"
-    div class="form-group"
+  div class="form-group"
       label Username
       input type="text" class="form-control" name="user[user_name]"
-    div class="form-group"
-      label  Password
-      input type="password" class="form-control" name="user[hashed_password]"
+  div class="form-group"
+    label  Password
+    input type="password" class="form-control" name="user[hashed_password]"
     input type="submit" class="btn btn-default" value="Sign Up"
