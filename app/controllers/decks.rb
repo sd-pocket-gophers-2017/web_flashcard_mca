@@ -9,26 +9,22 @@ end
 
 post '/decks/:id' do
   cards = Card.where(deck_id: params[:id])
-  unanswered_cards = cards.select { |card| card.guesses.empty? }
-  if unanswered_cards.any?
+
+  unanswered_cards = unanswered(cards)
+  incorrect_cards = incorrect(cards)
+
+  if unanswered_cards.empty? && incorrect_cards.empty?
+    redirect "/decks/#{params[:id]}/results"
+  elsif unanswered_cards.any?
     card = unanswered_cards.sample
-    redirect "/cards/#{card.id}"
   else
-    incorrect_cards = cards.select do |card|
-      card.guesses.select { |guess| guess.is_correct == 't' }.empty?
-    end
-    if incorrect_cards.any?
-      card = incorrect_cards.sample
-      redirect "/cards/#{card.id}"
-    else
-      redirect "/decks/#{params[:id]}/results"
-    end
+    card = incorrect_cards.sample
   end
+  redirect "/cards/#{card.id}"
 end
 
 get '/decks/:id/results' do
   @deck = Deck.find(params[:id])
-  grouped_guesses = @deck.guesses.group(:card_id).count(:guesses)
-  @first_try = grouped_guesses.select { |card, guess_count| guess_count == 1 }.count
+  @first_try = first_try_correct(@deck)
   slim :'decks/results'
 end
