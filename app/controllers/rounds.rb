@@ -23,7 +23,11 @@ end
 
 post '/rounds/new' do
   deck = Deck.find_by(name: params[:round][:deck_name])
-  user = User.find_or_create_by(user_name: 'anonymous', hashed_password: 'password')
+  if logged_in?
+    user = current_user
+  else
+    user = User.find_or_create_by(user_name: 'anonymous', hashed_password: 'password')
+  end
   round = Round.create(user_id: user.id, deck_id: deck.id)
   redirect "/rounds/#{round.id}"
 end
