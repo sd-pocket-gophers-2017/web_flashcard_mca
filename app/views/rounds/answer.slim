@@ -1,0 +1,10 @@
+h3 = @card.question
+
+- if correct_guesses_for(@card, @round).any?
+  h4 Correct!
+- else
+  h4 Incorrect!
+  p = "The correct answer is #{@card.answer}"
+
+
+a[href="/rounds/#{@round.id}"] Next
