@@ -1,7 +1,7 @@
 h1 Welcome
 p
   Please Login to access all of our features!
-  == slim :'users/errors' if @errors && @errors.any?
+  = 'users/errors' if @errors && @errors.any?
 form action="/users/login" method="post"
   label Username
   br

@@ -1,24 +1,21 @@
-#create a new user
+# get '/' do
+#   # Look in app/views/index.erb
+#   slim :index
+# end
 
+#create a new user
 get '/users/new' do
-  @user ||= User.new
   slim :'users/new'
 end
 
 post '/users' do
   params[:user][:hashed_password] = hash_password(params[:user][:hashed_password])
   @user = User.create(params[:user])
-  if @user.errors.any?
-    slim :'/users/new'
-  else
-    redirect '/users/login'
-  end
+  redirect '/users/login'
 end
-
 #login
-
 get '/users/login' do
-  if logged_in?
+  if session[:user_id]
     redirect '/users/profile'
   else
     slim :'users/login'
@@ -27,22 +24,31 @@ end
 
 post '/users/login' do
   @user = User.authenticate(params[:user][:user_name], params[:user][:hashed_password])
-  halt(401, slim(:'users/401')) unless @user
-  session[:user_id] = @user.id
-  redirect '/users/profile'
+  if @user
+    session[:user_id] = @user.id
+    redirect '/users/profile'
+  else
+    @errors = ['Login failed']
+    puts "We got errors, here they are #{@errors}"
+    slim :'users/login'
+  end
+end
+#logout
+get '/users/logout' do
+  slim :'users/logout'
 end
 
-#logout
-
 post '/users/logout' do
-  halt(404, slim(:'users/404')) unless logged_in?
   session[:user_id] = nil
   redirect '/users/login'
 end
 
 get '/users/profile' do
-  halt(401, slim(:'users/401')) unless logged_in?
-  slim :'users/profile'
+  if session[:user_id] == nil
+    redirect '/users/login'
+  else
+    slim :'users/profile'
+  end
 end
 
 
