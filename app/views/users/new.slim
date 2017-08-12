@@ -1,7 +1,8 @@
 h1 Welcome to Flashcards!
-p
-  | The world's premier DBC flashcard site.
-  div
+p The world's premier DBC flashcard site.
+- if @user.errors.any?
+  == slim :'users/errors'
+div
   form action="/users" method="post"
   div class="form-group"
       label Username

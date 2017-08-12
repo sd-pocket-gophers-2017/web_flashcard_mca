@@ -16,8 +16,8 @@ html
           form action="/users/logout" method="post"
             input type="submit" value="Logout"
         - else
-          a[href="/users/new"] Register
-          a[href="/users/login"] Login
-        a[href="/"] Home
+          a[class="btn btn-primary" href="/users/new"] Register
+          a[class="btn btn-primary" href="/users/login"] Login
+        a[class="btn btn-primary" href="/"] Home
 
     == yield
