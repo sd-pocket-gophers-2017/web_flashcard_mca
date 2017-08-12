@@ -2,14 +2,20 @@ h2
   =" #{current_user[:user_name]}"
   br
   br
-table style="width:75%"
-  tr
-    th Date
-    th Cards in Deck
-    th First Guess Correct
-    th Total Guesses
-  = current_user.rounds { |round| "1"}
-
+- get_stats.each do |deck|
+  = deck[0].deck.name
+  table style="width:75%"
+    tr
+      th Date
+      th Cards in Deck
+      th First Guess Correct
+      th Total Guesses
+    -deck.each do |round|
+      tr
+        th = round.created_at
+        th = round.deck.cards.count
+        th = first_try_correct(round)
+        th = round.guesses.count
 
 
 

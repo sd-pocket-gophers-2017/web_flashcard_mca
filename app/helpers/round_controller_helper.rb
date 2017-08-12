@@ -19,9 +19,9 @@ def correct_guesses_for(card, round)
 end
 
 def first_try_correct(round)
-  guesses = @round.guesses
+  guesses = round.guesses
   guesses = guesses.sort_by { |guess| guess.card_id }
   guesses = guesses.chunk { |guess| guess.card_id }
   guesses = guesses.to_a
-  guesses.select { |guess| p guess[1].count == 1 }.count
+  guesses.select { |guess| guess[1].count == 1 }.count
 end
